@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    
+
+    
+
+<section class="h-100 gradient-custom-2">
+
+    <div class="container py-5 h-100">
+      <form action="/follow" method="post">
+        {% csrf_token %}
+      <div class="row d-flex justify-content-center align-items-center h-100">
+       
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card">
+            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+              <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                <img src="{{user_profile.profileimg.url}}"
+                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                  style="width: 150px; z-index: 1">
+                  
+                  
+				
+                    {% if user_object.username == user.username %}
+                    <button type="button" class="btn-outline-dark " data-mdb-ripple-color="dark"
+                style="z-index: 1;">
+				<a href="/setting"> Edit profile</a>
+               
+              </button>
+                    {% else %}
+					
+					<button type="submit" class="btn-outline-dark " data-mdb-ripple-color="dark"
+					style="z-index: 1;">
+					{{button_text}}
+				  </button>                 
+				     {% endif %}
+                <input type="hidden" value="{{user.username}}" name="follower">
+					<input type="hidden" value="{{user_object.username}}" name="user">
+           
+              </div>
+              <div class="ms-3" style="margin-top: 130px;">
+                <h5><strong>{{user_profile.firstnm}} {{user_profile.lastnm}}</strong>( {{user_profile.user}} )</h5>
+                <p>{{user_profile.location}}</p>
+              </div>
+            </div>
+            <div class="p-4 text-black" style="background-color: #f8f9fa;">
+              <div class="d-flex justify-content-end text-center py-1">
+                <div>
+                    {% if user_post_length == 0 %}
+                    <p class="mb-1 h5">{{user_post_length}}</p>
+                  <p class="small text-muted mb-0">No post</p>
+                  {% elif user_post_length == 1%}
+                  <p class="mb-1 h5">{{user_post_length}}</p>
+                  <p class="small text-muted mb-0">post</p>
+                  {% else %}
+                  <p class="mb-1 h5">{{user_post_length}}</p>
+                  <p class="small text-muted mb-0">posts</p>
+                  {% endif %}
+                </div>
+                <div class="px-3">
+                    {% if flwr_count == 0 or flwr_count == 1 %}
+                  <p class="mb-1 h5">{{flwr_count}}</p>
+                  <p class="small text-muted mb-0">Follower</p>
+                  {% else %}
+                  <p class="mb-1 h5">{{flwr_count}}</p>
+                  <p class="small text-muted mb-0">Followers</p>
+                  {% endif %}
+                </div>
+                <div>
+                  <p class="mb-1 h5">{{flwng_count}}</p>
+                  <p class="small text-muted mb-0">Following</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-4 text-black">
+              <div class="mb-5">
+                <p class="lead fw-normal mb-1">About</p>
+                <div class="p-4" style="background-color: #f8f9fa;">
+                  <p class="font-italic mb-1">{{user_profile.bio}}</p>
+                  
+                </div>
+              </div>
+			  <div class="d-flex justify-content-between align-items-center mb-4">
+        </form>
+				<p class="lead fw-normal mb-0">Recent post</p>
+				
+			  </div>
+			  {% for post in user_post  %}
+			  
+				  <div class="row">
+					  <div class="col-md-12 grid-margin">
+						  <div class="card rounded">
+							  <div class="card-header">
+								  <div class="d-flex align-items-center justify-content-between">
+									  <div class="d-flex align-items-center">
+										  <img class="img-xs rounded-circle" src="{{user_profile.profileimg.url}}" alt="">
+										  <div class="ml-2">
+											  <p>@{{post.user}}</p>
+											  <p class="text-muted">{{post.created_at}}</p>
+										  </div>
+									  </div>
+									  <div class="dropdown">
+										  <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
+												  <circle cx="12" cy="12" r="1"></circle>
+												  <circle cx="19" cy="12" r="1"></circle>
+												  <circle cx="5" cy="12" r="1"></circle>
+											  </svg>
+										  </button>
+										  <div class="dropdown-menu " aria-labelledby="dropdownMenuButton2">
+											  <a class="dropdown-item d-flex align-items-center" href="#">
+												  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-meh icon-sm mr-2">
+													  <circle cx="12" cy="12" r="10"></circle>
+													  <line x1="8" y1="15" x2="16" y2="15"></line>
+													  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+													  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+												  </svg> <span class="align-left">Delete</span></a>
+											  
+										  </div>
+									  </div>
+								  </div>
+							  </div>
+							  <div class="card-body">
+								  <p class="mb-3 tx-14">{{post.caption}}</p>
+								  <img class="img-fluid" src="{{post.image.url}}" alt="">
+							  </div>
+							  <div class="card-footer">
+								  <div class="d-flex post-actions">
+										  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
+											  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+										  </svg>
+										  {% if post.no_of_like == 0 %}
+											  <p>no likes</p> 
+											  {% elif post.no_of_like == 1 %}
+											  <p>liked by {{post.no_of_like}} person</p>
+											  {% else %}
+											  <p> liked by {{post.no_of_like}} people</p>
+											  {% endif %}
+												  
+									  </a>
+									  
+									 
+								  </div>
+							  </div>
+						  </div>
+					  </div>
+					  
+				  </div>
+			  
+			  {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+            <!-- middle wrapper start -->
+         
+            <!-- middle wrapper end -->
+           
+        </div>
+    </div>
+    </div>
+    {% endblock  %}

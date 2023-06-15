@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    
+
+    
+
+           
+    
+  
+<div class="container mt-5 d-flex justify-content-center">
+    {% for users in username_profile_list %}
+    <div class="card p-3">
+  
+        <div class="d-flex align-items-center">
+  
+            <div class="image">
+                <a href="/profile/{{users.user}}">
+        <img src="{{users.profileimg.url}}" class="rounded" width="155" >
+    </a>
+        </div>
+  
+        <div class="ml-3 w-100">
+            <a href="/profile/{{users.user}}">
+           <h4 class="mb-0 mt-0">@{{users.user}}</h4>
+            </a>
+           <span>{{users.firstnm}} {{users.lastnm}}</span>
+  
+           <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+  
+            
+  
+           
+            
+  
+  
+           <div class="button mt-2 d-flex flex-row align-items-center">
+            <a href="/profile/{{users.user}}" class="btn btn-sm btn-outline-primary w-100">
+           View user
+           
+        </a>
+               
+           </div>
+  
+  
+        </div>
+  <style>
+    body{
+    
+        background-color:#B3E5FC;
+        border-radius: 10px;
+    
+    }
+    
+    
+    .card{
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+       
+      background-color: #fff;
+    }
+    
+    
+    
+    .stats{
+    
+          background: #f2f5f8 !important;
+    
+        color: #000 !important;
+    }
+    .articles{
+      font-size:10px;
+      color: #a1aab9;
+    }
+    .number1{
+      font-weight:500;
+    }
+    .followers{
+        font-size:10px;
+      color: #a1aab9;
+    
+    }
+    .number2{
+      font-weight:500;
+    }
+    .rating{
+        font-size:10px;
+      color: #a1aab9;
+    }
+    .number3{
+      font-weight:500;
+    }
+  </style>
+            
+        
+        {% endfor %}
+    </div>
+     
+  </div>
+
+
+
+
+
+    {% endblock  %}
+
+
+
